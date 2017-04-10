@@ -1,0 +1,54 @@
+---
+layout: post
+status: publish
+published: true
+title: First-in First-out, Least-Recently-Used
+author:
+  display_name: ''
+  login: ''
+  email: ''
+  url: ''
+wordpress_id: 98
+wordpress_url: http://dan.lecocq.us/wordpress/2008/04/16/first-in-first-out-least-recently-used/
+date: '2008-04-16 11:21:39 -0700'
+date_gmt: '2008-04-16 18:21:39 -0700'
+categories:
+- computer science
+tags:
+- first-in first-out
+- fifo
+- page-replacement
+- memory-management
+- ruby
+- script
+comments: []
+---
+<p>In my OS class, we've started talking about some page-replacement algorithms, including FIFO, LRU, and clock.  These are going to be on an upcoming exam, and so Mike (our prof) suggested that we make up our own page access sequences, and then run the algorithm.  That's all well and good, but without knowing whether or not you got it right, problems might arise.</p>
+<p>Enter Ruby - make a quick little script that will run the algorithm for you, so as to check your results.</p>
+<p><a href='http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2008&#47;04&#47;fifo.rb' title='First-in First-out'>fifo.rb<&#47;a><br />
+<a href='http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2008&#47;04&#47;lru.rb' title='Least-Recently-Used'>lru.rb<&#47;a></p>
+<p>Usage:<br />
+<code><br />
+fifo.rb "123412512345" 3 # Run the sequence provided with a queue size of 3<br />
+lru.rb "293847101928" 5 # Run the provided sequence with a stack size of 5<br />
+<&#47;code></p>
+<p>All the page numbers do have to be single characters, but letters and symbols are also accepted.</p>
+<p>Sample output:<br />
+<code><br />
+Dan-Lecocqs-Mac:Desktop dlecocq$ .&#47;lru.rb "123412512345" 4<br />
+1 * 1<br />
+2 * 2	1<br />
+3 * 3	2	1<br />
+4 * 4	3	2	1<br />
+1   1	4	3	2<br />
+2   2	1	4	3<br />
+5 * 5	2	1	4<br />
+1   1	5	2	4<br />
+2   2	1	5	4<br />
+3 * 3	2	1	5<br />
+4 * 4	3	2	1<br />
+5 * 5	4	3	2<br />
+Page faults: 8 &#47; 12<br />
+<&#47;code></p>
+<p>Please note that you'll have to change your shebang line to point to the path of your Ruby interpreter.  I found Ruby in lots of places on my system, but check in your path.  (Note: I'm using Ruby 1.8.4, but I don't think I'm using a lot, or any, recent-version specific functionality)</p>
+<p>If you're not running it with "ruby fifo.rb ...", make sure you've chmod'd it to be executable.</p>

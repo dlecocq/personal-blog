@@ -1,0 +1,32 @@
+---
+layout: post
+status: publish
+published: true
+title: Shared Objects
+author:
+  display_name: dan.lecocq
+  login: dan.lecocq
+  email: dan.lecocq@kaust.edu.sa
+  url: http://dan.lecocq.us/wordpress
+author_login: dan.lecocq
+author_email: dan.lecocq@kaust.edu.sa
+author_url: http://dan.lecocq.us/wordpress
+wordpress_id: 859
+wordpress_url: http://dan.lecocq.us/wordpress/?p=859
+date: '2010-07-02 11:54:37 -0700'
+date_gmt: '2010-07-02 18:54:37 -0700'
+categories:
+- miscellany
+tags:
+- shared objects
+- static linking
+- dynamic linking
+comments: []
+---
+<p>Shared objects are great.  Imagine you have several programs running that all make use of the same library.  If they are all statically linked against that library, then there will be several copies of essentially the same code in memory.  Shared objects allow all these programs to reference the same code, held in memory in only one spot.</p>
+<p>I've recently been spending a lot of time trying to get a few key libraries compiled on a cluster, where the idea is to run jobs based on these libraries in parallel.  As memory is particularly limited, and there are several cores per node, I figured it would particularly make sense to compile everything as a shared object.  Also, a subsequent library depended on it.</p>
+<p>A lot of different packages configure, build and install themselves in a number of ways and often don't adhere to conventions.  Despite trying every flag known to man into the configuration tools, I was unable to get a particular piece to build as a shared object.  But I happened upon a <a href="http:&#47;&#47;www.tipcache.com&#47;tip&#47;Convert_a_static_library_(.a)_to_a_shared_object_(.so)_12.html">particularly useful code snippet<&#47;a> to save the day:<br />
+<code><br />
+ar -x mylib.a<br />
+gcc -shared *.o -o mylib.so<br />
+<&#47;code></p>

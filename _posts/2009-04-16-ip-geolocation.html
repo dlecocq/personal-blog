@@ -1,0 +1,36 @@
+---
+layout: post
+status: publish
+published: true
+title: IP Geolocation
+author:
+  display_name: ''
+  login: ''
+  email: ''
+  url: ''
+wordpress_id: 498
+wordpress_url: http://dan.lecocq.us/wordpress/?p=498
+date: '2009-04-16 09:59:36 -0700'
+date_gmt: '2009-04-16 16:59:36 -0700'
+categories:
+- toys
+- computer science
+- tools
+tags:
+- mysql
+- ip geolocation
+- scripts
+comments: []
+---
+<p>There are a million services out there where you type in an IP address and get an estimate as to its location.  A few months ago I stumbled across a free IP geolocation database because I find myself using online services from time to time - I was sort of surprised how often it's helpful to know where traffic is coming from (outside of Google Analytics, etc.).</p>
+<p>Using the <a href="http:&#47;&#47;www.iplocationtools.com&#47;sql_database.php">database<&#47;a> I found, I threw together a script that takes a list of domain names and &#47; or IP addresses and gives you an idea of where it lives:</p>
+<p><code><br />
+dan-lecocqs-macbook:~ dlecocq$ ipquery google.com<br />
+ 209.85.171.100        Mountain View, US 94043 37.4192 -122.0570<br />
+dan-lecocqs-macbook:~ dlecocq$ ipquery yahoo.com<br />
+ 68.180.206.184            Sunnyvale, US 94089 37.4249 -122.0070<br />
+dan-lecocqs-macbook:~ dlecocq$ ipquery apple.com<br />
+  17.251.200.70            Cupertino, US 95014 37.3042 -122.0950<br />
+dan-lecocqs-macbook:~ dlecocq$ ipquery mines.edu<br />
+     138.67.1.8               Golden, US 80401 39.7146 -105.2430<br />
+<&#47;code></p>

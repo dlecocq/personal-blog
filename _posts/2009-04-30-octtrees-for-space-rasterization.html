@@ -1,0 +1,30 @@
+---
+layout: post
+status: publish
+published: true
+title: Octtrees For Space Rasterization
+author:
+  display_name: ''
+  login: ''
+  email: ''
+  url: ''
+wordpress_id: 525
+wordpress_url: http://dan.lecocq.us/wordpress/?p=525
+date: '2009-04-30 14:49:09 -0700'
+date_gmt: '2009-04-30 21:49:09 -0700'
+categories:
+- computer science
+tags:
+- graphics
+- ray tracing
+- octtree
+- computational geometry
+comments: []
+---
+<p>Raytracing is slow.  Incredibly slow.  <em>Painfully<&#47;em> slow.  That's because you've got to check a lot of things to accurately determine what you're seeing, if it's in shadow, if it reflects off of something, etc., so it helps quite a bit to be able to get an idea beforehand of where everything is.  Enter octtrees.</p>
+<p>We've got a picture of a model (in this case, the Stanford bunny model).  It consists of thousands of tiny triangles that make a surface.  Then, imagine a cube surrounding the entire model.  If there are two many triangles in that cube, you cut the cube in to eight smaller cubes, and repeat.  What this build is a tree where "busy" portions of the space get divided more.</p>
+<p>And now for pretty pictures:<br />
+[caption id="attachment_526" align="aligncenter" width="300" caption="The bunny on its own.  There are tricks to smooth it out, but I left it highly triangulated to better represent the idea."]<a href="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2009&#47;04&#47;bunny.png"><img src="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2009&#47;04&#47;bunny-300x291.png" alt="The bunny on its own.  There are tricks to smooth it out, but I left it highly triangulated to better represent the idea." title="bunny" width="300" height="291" class="size-medium wp-image-526" &#47;><&#47;a>[&#47;caption]<br />
+[caption id="attachment_527" align="aligncenter" width="300" caption="Bunny with balanced wireframe octtree around it."]<a href="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2009&#47;04&#47;bunnytree.png"><img src="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2009&#47;04&#47;bunnytree-300x291.png" alt="Bunny with balanced wireframe octtree around it." title="bunnytree" width="300" height="291" class="size-medium wp-image-527" &#47;><&#47;a>[&#47;caption]<br />
+[caption id="attachment_528" align="aligncenter" width="300" caption="Profile of the bunny with a very deep octtree."]<a href="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2009&#47;04&#47;bunnytreeside.png"><img src="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2009&#47;04&#47;bunnytreeside-300x291.png" alt="Profile of the bunny with a very deep octtree." title="bunnytreeside" width="300" height="291" class="size-medium wp-image-528" &#47;><&#47;a>[&#47;caption]</p>
+<p>I'm finishing up the implementation, and then I'll be using it as part of my octtree as a intersection speedup.</p>

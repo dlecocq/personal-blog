@@ -1,0 +1,31 @@
+---
+layout: post
+status: publish
+published: true
+title: Memory Leak
+author:
+  display_name: ''
+  login: ''
+  email: ''
+  url: ''
+wordpress_id: 165
+wordpress_url: http://dan.lecocq.us/wordpress/?p=165
+date: '2008-11-24 23:48:07 -0800'
+date_gmt: '2008-11-25 06:48:07 -0800'
+categories:
+- school
+- computer science
+- projects
+tags:
+- memory leak
+- gdb
+- segmentation fault
+comments: []
+---
+<p>Memory management is a notoriously difficult aspect of coding in C++.  Generally, the problems one runs into with pointers is that you get rid of the data you're pointing to while you still need it.  Gdb has become a good friend for finding segmentation faults.</p>
+<p>For those of you who aren't computer scientists, here's a quick explanation - we need space to store variables and information.  So, one way to do this is ask the system for some space, and then the system gives back an address.  Imagine mailboxes at the post office - you don't have the stuff stored in your mailbox with you at all times, but rather the way (the key) to access it.  One problem that arises when you tell the post office you don't need the mailbox anymore, but you don't give back the key.  Someone else is assigned this mailbox, and his mail starts arriving in there, and when you go looking for yours, it's not what you expect (this often causes a segmentation fault).  The other problem is when one patron keeps requesting mailboxes, and you're only allowed to hold one key at a time, so you discard the old ones.  If you request too many, no mailboxes are left (this is a memory leak)!</p>
+<p>At any rate, I don't have much experience tracking down memory leaks, and so when I came across this problem, I asked an open question to everyone in the lab of the best way to do this.  Someone suggested I put soapy water on my program and look for bubbles.</p>
+<p>I ended up looking through my code for places where this might be happening, and I happened to find it pretty quickly.  That's pretty lucky.</p>
+<p>[caption id="attachment_167" align="aligncenter" width="299" caption="A memory leak gets out of control"]<a href="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2008&#47;11&#47;leak-1.png"><img src="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2008&#47;11&#47;leak-1-299x300.png" alt="A memory leak gets out of control" title="Memory Leak" width="299" height="300" class="size-medium wp-image-167" &#47;><&#47;a>[&#47;caption]</p>
+<p>[caption id="attachment_168" align="aligncenter" width="299" caption="We get our memory back when the program is terminated."]<a href="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2008&#47;11&#47;leak-2.png"><img src="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2008&#47;11&#47;leak-2-299x300.png" alt="We get our memory back when the program is terminated." title="Memory Leak" width="299" height="300" class="size-medium wp-image-168" &#47;><&#47;a>[&#47;caption]</p>
+<p>[caption id="attachment_171" align="aligncenter" width="300" caption="I got gdb to seg fault!"]<a href="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2008&#47;11&#47;picture-3.png"><img src="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2008&#47;11&#47;picture-3-300x137.png" alt="I got gdb to seg fault!" title="Broken gdb" width="300" height="137" class="size-medium wp-image-171" &#47;><&#47;a>[&#47;caption]</p>

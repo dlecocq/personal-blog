@@ -1,0 +1,27 @@
+---
+layout: post
+status: publish
+published: true
+title: Mandelbrot
+author:
+  display_name: ''
+  login: ''
+  email: ''
+  url: ''
+wordpress_id: 177
+wordpress_url: http://dan.lecocq.us/wordpress/?p=177
+date: '2008-11-28 22:13:20 -0800'
+date_gmt: '2008-11-29 05:13:20 -0800'
+categories:
+- computer science
+tags:
+- graphics
+- Mandelbrot
+comments: []
+---
+<p>The <a href="http:&#47;&#47;en.wikipedia.org&#47;wiki&#47;Mandelbrot_set">Mandelbrot set<&#47;a> is one of those things you've always seen on posters or in your math book, but never knew what it was actually.  Well, it was that way for me, until recently.</p>
+<p>It's a graph of the <a href="http:&#47;&#47;en.wikipedia.org&#47;wiki&#47;Complex_plane">complex plane<&#47;a>, in which each point has an associated value.  This value is determined by the series:</p>
+<p>$$ x_{n+1} = x_{n}^{2} + c$$</p>
+<p>where c is the point in question.  If this value does not approach infinity, then it's contained in the set, and is colored in black.  Otherwise, its color is determined by how fast it grows (and there are a number of ways of doing this).</p>
+<p>A new friend of mine, Johnny, adapted code from one of our graphics projects to render the set, and so I had to do the same.  Not one-upsmanship, but how awesome is that for a project.  That said, this is the result of my work so far, but I plan to develop a better coloring scheme, as well as adding interactivity and exploratory tools to the interface.<br />
+[caption id="attachment_179" align="aligncenter" width="300" caption="My rendered version of the Mandelbrot set"]<a href="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2008&#47;11&#47;mandelbrot.png"><img src="http:&#47;&#47;dan.lecocq.us&#47;wordpress&#47;wp-content&#47;uploads&#47;2008&#47;11&#47;mandelbrot-300x271.png" alt="My rendered version of the Mandelbrot set" title="Mandelbrot Set" width="300" height="271" class="size-medium wp-image-179" &#47;><&#47;a>[&#47;caption]</p>

@@ -1,0 +1,80 @@
+---
+layout: post
+status: publish
+published: true
+title: Modules - Your Friend in Package Management
+author:
+  display_name: dan.lecocq
+  login: dan.lecocq
+  email: dan.lecocq@kaust.edu.sa
+  url: http://dan.lecocq.us/wordpress
+author_login: dan.lecocq
+author_email: dan.lecocq@kaust.edu.sa
+author_url: http://dan.lecocq.us/wordpress
+wordpress_id: 872
+wordpress_url: http://dan.lecocq.us/wordpress/?p=872
+date: '2010-07-14 09:07:32 -0700'
+date_gmt: '2010-07-14 16:07:32 -0700'
+categories:
+- computer science
+tags:
+- modules
+- package management
+comments:
+- id: 877
+  author: Berk Geveci
+  author_email: berk.geveci@kitware.com
+  author_url: ''
+  date: '2010-07-14 12:35:51 -0700'
+  date_gmt: '2010-07-14 19:35:51 -0700'
+  content: Modules rock. I use them everyday when developing VTK&#47;ParaView :-)
+- id: 878
+  author: dan.lecocq
+  author_email: dan.lecocq@kaust.edu.sa
+  author_url: http://dan.lecocq.us/wordpress
+  date: '2010-07-14 12:44:51 -0700'
+  date_gmt: '2010-07-14 19:44:51 -0700'
+  content: I'm glad to know that it sees real-world use outside of campus.  And at
+    Kitware, no less!
+---
+<p>I've been working with a large shared system at my school, sometimes building packages for myself and sometimes for others.  The one thing that's almost certain across all such installations is that it's difficult.  Installing dependencies can be a very deep rabbit hole, and there are seemingly more configuration, build and source control systems than there are atoms in the universe.</p>
+<p>On this particular shared system, our awesome sysadmins (these guys are really pretty great!) use a package called <a href="http:&#47;&#47;modules.sourceforge.net&#47;">modules<&#47;a> to set environment variables for use with various packages.  Suppose you have several versions of a library that you're working with.  Let's say some users need Python 2.4, and other 2.6 and 3.0.  Instead of managing your path yourself, modules can help:<br />
+<code><br />
+$> module load python-2.4<br />
+$> which python<br />
+&#47;opt&#47;share&#47;python&#47;2.4&#47;ppc64&#47;bin&#47;python<br />
+<&#47;code></p>
+<p>One of the really great things about modules is that the way so-called <a href="http:&#47;&#47;modules.sourceforge.net&#47;man&#47;modulefile.html">modulefiles<&#47;a> are written, not only can you load modules easily, but you can also <em>unload<&#47;em> them just as easily:<br />
+<code><br />
+$> which python<br />
+&#47;opt&#47;share&#47;python&#47;2.4&#47;ppc64&#47;bin&#47;python<br />
+$> module unload python-2.4<br />
+$> module load python-2.6<br />
+$> which python<br />
+&#47;opt&#47;share&#47;python&#47;2.6&#47;ppc64&#47;bin&#47;python<br />
+<&#47;code></p>
+<p>It's of course not limited to any particular environment variable.  The modulefile can specify where the man pages are, what paths to include when using <a href="http:&#47;&#47;www.cmake.org&#47;">cmake<&#47;a>, dynamic library path and whatever you'd like.</p>
+<p>Modulefiles are also extremely convenient places to store information on how you actually built the library.  When you come back to it three months from now to build the next version of some code base, you won't remember the complex arguments you had to pass into configure or cmake in order to get the damned thing to build.  Build notes are an essential part of maintaining code, especially if other people will be using the libraries you've built.</p>
+<p>Speaking of which, I've worked on other shared systems before where several people need to use the same library and end up building it separately.  Frank and Steve both need libX, and have made their installations accessible to the other users on the system, but who wants to sully their .bash_profile by adding some long and ugly paths to their PATH?  If Steve makes his modulefiles directory public, too, then you can just that directory in MODULEPATH:<br />
+<code><br />
+# in ~&#47;.bash_profile<br />
+...<br />
+export MODULEPATH=~&#47;modules&#47;:&#47;home&#47;frank&#47;modules&#47;<br />
+...<br />
+<&#47;code></p>
+<p>Perhaps it's not the best thing since sliced bread, but I like that it affords me a way to bridge the gap between having a convention for where libraries are installed (say, if you use MacPorts, for example?) and being able to easily set all your environment variables to <em>easier<&#47;em> if not easy compilation.</p>
+<p>By way of a way that its helped me, I've been compiling quite a few projects recently that rely on cmake.  These projects also have a whole lot of dependencies, but my build process is now something along the lines of:<br />
+<code><br />
+$> module load libxml2<br />
+$> module load vtk<br />
+$> module load osmesa<br />
+$> ...<br />
+$> cmake ~&#47;ParaView<br />
+<&#47;code></p>
+<p>This, compared to:<br />
+<code><br />
+CMAKE_INCLUDE_PATH=$CMAKE_INCLUDE_PATH:&#47;opt&#47;share&#47;libxml2&#47;2.7.7&#47;ppc64&#47;include:&#47;opt&#47;share&#47;vtk&#47;5.6.0&#47;ppc64&#47;include&#47;:...\<br />
+CMAKE_LIBRARY_PATH=$CMAKE_LIBRARY_PATH:&#47;opt&#47;share&#47;libxml2&#47;2.7.7&#47;ppc64&#47;include:&#47;opt&#47;share&#47;vtk&#47;5.6.0&#47;ppc64&#47;lib&#47;:...\<br />
+cmake ~&#47;ParaView<br />
+<&#47;code></p>
+<p>Computers aren't perfect, but they are experts at remembering the details.  Almost to a fault.  Modules helps my interactions to be a little more equitable where I have to remember the important parts (the names of the modules I need, for example) and the computer can keep track of where the hell I put everything!</p>

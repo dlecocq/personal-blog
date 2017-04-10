@@ -1,0 +1,48 @@
+---
+layout: post
+status: publish
+published: true
+title: Injection Attack
+author:
+  display_name: ''
+  login: ''
+  email: ''
+  url: ''
+wordpress_id: 112
+wordpress_url: http://dan.lecocq.us/wordpress/2008/08/22/injection-attack/
+date: '2008-08-22 20:39:28 -0700'
+date_gmt: '2008-08-23 03:39:28 -0700'
+categories:
+- web
+- computer science
+tags:
+- vulnerability
+- security
+- injection attack
+- mysql
+- sanitize
+comments: []
+---
+<p>For those of us familiar with SQL, we're almost certainly familiar with SQL injection attacks.  We've talked about them in class, and maybe the more nefarious of us has even tried it on a form or two.  There are vulnerable ones out there - I remember having to tell an experienced programmer about sanitizing his form input.  If you're reading this, you know who you are.</p>
+<p>For those of you who don't know about SQL injection attacks, the long and short of it is you try to give input in a form that will be interpreted as SQL and executed.  So, for example (see comic link below), you might try to give input that deletes records, or inserts malformed records.  For example, a simple, well-formed request to insert a comment might be:</p>
+<p><code><br />
+INSERT INTO `comments` (`name`, `comment`) VALUES ('Bob', 'My comment');<br />
+<&#47;code></p>
+<p>If Bob's comment has a quote in it, though, if you haven't sanitized the input, you'll get something that doesn't make any sense to the interpreter:</p>
+<p><code><br />
+INSERT INTO `comments` (`name`, `comment`) VALUES ('Bob', 'It's my comment');<br />
+<&#47;code></p>
+<p>Say Bob were feeling malicious, part of his comment could be an entirely new command that the interpreter would deem valid.  If his comment were "Haha suckers!'); DROP TABLE `comments`;", then we'd get two well-formed commands that would get executed:</p>
+<p><code><br />
+INSERT INTO `comments` (`name`, `comment`) VALUES ('Bob', 'Haha suckers!'); DROP TABLE `comments`;');<br />
+<&#47;code></p>
+<p>This, as you can imagine, is not desirable.  So, part of sanitizing input is to escape out characters that are normally recognized by the interpreter:</p>
+<p><code><br />
+INSERT INTO `comments` (`name`, `comment`) VALUES ('Bob', 'Haha suckers!<strong>'<&#47;strong>); DROP TABLE `comments`;');<br />
+<&#47;code></p>
+<p>At any rate, a few months ago, I actually had an attempt more or less 'caught on tape' in the comments section of my blog.  I got an email that there was a new comment awaiting moderation, and it was this:</p>
+<p><code><br />
+Bill164415140&prime;,&rsquo;311521868billy@msn.com&rsquo;,&rdquo;,&rsquo;30.68.179.4&prime;,&rsquo;2008-03-12 16:12:16&prime;,&rsquo;2008-03-12 16:12:16&prime;,&rdquo;,&rsquo;0&prime;,&rsquo;lynx&rsquo;,'comment&rsquo;,'0&prime;,&rsquo;0&prime;),(&rsquo;0&prime;, &rdquo;, &rdquo;, &rdquo;, &rdquo;, &lsquo;2008-03-13 16:12:16&prime;, &lsquo;2008-03-13 16:12:16&prime;, &rdquo;, &rsquo;spam&rsquo;, &rdquo;, &lsquo;comment&rsquo;, &lsquo;0&prime;,&rsquo;0&prime; )<br />
+<&#47;code></p>
+<p>Not exactly the most harmful stuff.  Still, it was nice to see an attempt in the wild.</p>
+<p>Another good example is <a href="http:&#47;&#47;xkcd.com&#47;327&#47;">this xkcd comic<&#47;a>.</p>

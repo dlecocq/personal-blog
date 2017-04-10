@@ -1,0 +1,33 @@
+---
+layout: post
+status: publish
+published: true
+title: Git in Four Commands
+author:
+  display_name: dan.lecocq
+  login: dan.lecocq
+  email: dan.lecocq@kaust.edu.sa
+  url: http://dan.lecocq.us/wordpress
+author_login: dan.lecocq
+author_email: dan.lecocq@kaust.edu.sa
+author_url: http://dan.lecocq.us/wordpress
+wordpress_id: 941
+wordpress_url: http://dan.lecocq.us/wordpress/?p=941
+date: '2011-06-05 10:47:09 -0700'
+date_gmt: '2011-06-05 17:47:09 -0700'
+categories:
+- computer science
+tags:
+- version control
+- git
+comments: []
+---
+<p><a href="http:&#47;&#47;book.git-scm.com&#47;">Git<&#47;a> is not a complicated tool for most things. I still find it a little tricky to set up for multiple users, but even that's pretty easy. It really caters to the use-case where you're just starting a project, or are the sole developer, but just want to keep track of changes and versions, make branches, etc.</p>
+<p>The first major point of git is that everyone has their own copy of the repository. When you commit changes, you commit them to your local copy of the repository. If you are working on a group project, there is a shared resource that can be <strong>pushed to<&#47;strong> and <strong>pulled from<&#47;strong>, but I actually like that it takes an extra command to do that -- it forces me to make sure that it's what I actually want to do. Now, to the bare-bones commands:</p>
+<ol>
+<li><strong>git init<&#47;strong> -- Wherever you're writing your code, type "git init". It creates an empty repository in that directory (there's a magical hidden folder ".git" that gets created and knows things).<&#47;li>
+<li><strong>git status<&#47;strong> -- Git knows which files have changed since you last saved changes, and it will happily tell you which files are new and changed with this command.<&#47;li>
+<li><strong>git add<&#47;strong> -- When you change files and are at a point where it make sense to save changes to your code (a bug fix, a new feature, etc.), then tell git which files you want to put in this commit  with "git add". If committing a set of changes with git is like shooting a gun, then adding files to be committed is like loading that gun. Git knows which files have changed, but it can make sense to group changed files into different logical commits. For example, if you fix two bugs between commits, you might want to add the changes for each bug fix separately.<&#47;li>
+<li><strong>git commit<&#47;strong> -- When you have added a bunch of changed files to be committed, now you're ready to actually commit those changes. Type "git commit -m 'A short, meaningful summary of the changes that happened.'"<&#47;li><br />
+<&#47;ol></p>
+<p>There is a lot more to git, and a <a href="http:&#47;&#47;www.kernel.org&#47;pub&#47;software&#47;scm&#47;git&#47;docs&#47;gittutorial.html">million tutorials<&#47;a>, that will explain things in more detail, but these are the commands I spend 95% of my time using, and enough to at least get you starting tracking changes for anything and everything. It doesn't matter very much what version control you use, <strong>just use something.<&#47;strong></p>
