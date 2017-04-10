@@ -4,3 +4,4 @@ _site
 
 # Generated files
 *.html
+.DS_Store
